@@ -1,7 +1,10 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 
 class TestJiraLoginUI:
@@ -13,11 +16,9 @@ class TestJiraLoginUI:
         driver.find_element_by_css_selector("#login-form-username").send_keys("webinar5")
         driver.find_element_by_css_selector("#login-form-password").send_keys("webinar5")
         driver.find_element_by_css_selector("#login").click()
-        time.sleep(3)
-        profile = driver.find_element_by_css_selector("#gadget-10002-title").text
+        profile = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text
         assert "Assigned to Me" in profile
         driver.quit()
-
 
     def test_create_issue_in_jira(self):
         driver: WebDriver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
