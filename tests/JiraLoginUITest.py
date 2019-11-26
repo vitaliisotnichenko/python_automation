@@ -1,7 +1,11 @@
 import time
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 
 class TestJiraLoginUI:
@@ -13,22 +17,37 @@ class TestJiraLoginUI:
         driver.find_element_by_css_selector("#login-form-username").send_keys("webinar5")
         driver.find_element_by_css_selector("#login-form-password").send_keys("webinar5")
         driver.find_element_by_css_selector("#login").click()
-        time.sleep(3)
-        profile = driver.find_element_by_css_selector("#gadget-10002-title").text
+        profile = WebDriverWait(driver, 30).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text
         assert "Assigned to Me" in profile
         driver.quit()
 
-
     def test_create_issue_in_jira(self):
         driver: WebDriver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+
+        driver.set_network_conditions(
+            offline=False,
+            latency=1,  # additional latency (ms)
+            download_throughput=250 * 1024,  # maximal throughput
+            upload_throughput=250 * 1024)  # maximal throughput
+
         driver.implicitly_wait(5)
         driver.get("http://jira.hillel.it:8080/secure/Dashboard.jspa")
         assert "System Dashboard - Hillel IT School JIRA" in driver.title
         driver.find_element_by_css_selector("#login-form-username").send_keys("webinar5")
         driver.find_element_by_css_selector("#login-form-password").send_keys("webinar5")
         driver.find_element_by_css_selector("#login").click()
-        time.sleep(5)
-        driver.find_element_by_css_selector("#create_link").click()
+
+        for i in range(3):
+            try:
+                driver.find_element_by_css_selector("#create_link").click()
+                if driver.find_element_by_css_selector("[title='Create Issue']").is_displayed():
+                    break
+            except (NoSuchElementException, StaleElementReferenceException):
+                time.sleep(5)
+                i += 1
+                print("Couldn't find element. Retrying... " + str(i) + "attempt")
+
         create_issue_title = driver.find_element_by_css_selector("[title=\"Create Issue\"]").text
         assert "Create Issue" in create_issue_title
         driver.find_element_by_css_selector("#summary").clear()
