@@ -24,6 +24,9 @@ class LoginPage(BasePage):
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text
         assert "Assigned to Me" in profile
 
+    def should_have_create_issue_title(self):
+        create_issue_title = self.browser.find_element_by_css_selector("[title=\"Create Issue\"]").text
+        assert "Create Issue" in create_issue_title
 
 
 
