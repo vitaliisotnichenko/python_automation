@@ -43,6 +43,6 @@ class CreateIssue(BasePage):
     def click_create_issue_button(self):
         __create_issue_button = self.browser.find_element(By.CSS_SELECTOR, "#create-issue-submit").click()
 
-    def should_have_text_create_issue_alert(self):
+    def is_alert_present(self):
         __issue = self.browser.find_element_by_css_selector(".aui-will-close").text
-        assert "has been successfully created." in __issue
+        assert "Create Issue" in __issue

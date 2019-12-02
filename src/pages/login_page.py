@@ -7,28 +7,26 @@ from .base_page import BasePage
 class LoginPage(BasePage):
 
 
-    def login_to_jira_enter_username(self):
+    def login_to_jira_enter_username(self, username):
         # type: (WebDriver) -> ()
         __username_field = self.browser.find_element(By.CSS_SELECTOR, "#login-form-username")
         __username_field.clear()
-        __username_field.send_keys("webinar5")
+        __username_field.send_keys(username)
 
-    def login_to_jira_enter_password(self):
+    def login_to_jira_enter_password(self, password):
         __password_field = self.browser.find_element(By.CSS_SELECTOR, "#login-form-password")
         __password_field.clear()
-        __password_field.send_keys("webinar5")
+        __password_field.send_keys(password)
 
     def click_login_button(self):
         __login_button = self.browser.find_element(By.CSS_SELECTOR, "#login").click()
 
-    def should_contain_assigned_to_me_section(self):
-        __profile = WebDriverWait(self.browser, 30).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text
-        assert "Assigned to Me" in __profile
+    # def is_assigned_to_me_section(self):
+    #     __assigned_to_me_section = WebDriverWait(self.browser, 30).until(
+    #         EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text
+    #     assert "Assigned to Me" in __assigned_to_me_section
 
-    def should_have_create_issue_button(self):
-        __create_issue_title = self.browser.find_element_by_css_selector("[title=\"Create Issue\"]").text
-        assert "Create Issue" in __create_issue_title
+
 
 
 
