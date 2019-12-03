@@ -21,6 +21,7 @@ class LoginPage(BasePage):
     def click_login_button(self):
         __login_button = self.browser.find_element(By.CSS_SELECTOR, "#login").click()
 
+
     # def is_assigned_to_me_section(self):
     #     __assigned_to_me_section = WebDriverWait(self.browser, 30).until(
     #         EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text

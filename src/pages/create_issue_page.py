@@ -9,7 +9,7 @@ class CreateIssue(BasePage):
 
     def should_have_title(self):
         __create_issue_title = self.browser.find_element(By.CSS_SELECTOR, "[title=\"Create Issue\"]").text
-        assert "Create Issue" in __create_issue_title
+        return "Create Issue" in __create_issue_title
 
     def choose_the_project(self):
         __select = Select.find_element(By.CSS_SELECTOR, "#project")
@@ -40,9 +40,9 @@ class CreateIssue(BasePage):
         __reporter_field.send_keys("webinar5")
         __reporter_field.send_keys(Keys.ENTER)
 
-    def click_create_issue_button(self):
-        __create_issue_button = self.browser.find_element(By.CSS_SELECTOR, "#create-issue-submit").click()
+    # def click_create_issue_button(self):
+    #     __create_issue_button = self.browser.find_element(By.CSS_SELECTOR, "#create-issue-submit").click()
 
     def is_alert_present(self):
         __issue = self.browser.find_element_by_css_selector(".aui-will-close").text
-        assert "Create Issue" in __issue
+        return "Create Issue" in __issue

@@ -7,4 +7,4 @@ class BasePage():
         self.browser.get("http://jira.hillel.it:8080/secure/Dashboard.jspa")
 
     def at_page(self):
-        assert "System Dashboard - Hillel IT School JIRA" in self.browser.title
+        return "System Dashboard - Hillel IT School JIRA" in self.browser.title
