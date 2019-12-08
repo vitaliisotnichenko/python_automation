@@ -26,7 +26,6 @@ class CreateIssue(BasePage):
         __project_field = self.browser.find_element(By.CSS_SELECTOR, "#project-field")
         WebDriverWait(self.browser, 30).until_not(EC.text_to_be_present_in_element(By.CSS_SELECTOR, "#project-field")).clear()
         return __project_field.send_keys(project_name)
-        # __project_field.send_keys(Keys.ENTER)
 
     def click_create_issue_button(self):
         for i in range(3):
@@ -43,15 +42,6 @@ class CreateIssue(BasePage):
     def enter_summary_field(self, summary):
         __enter_summary_field = WebDriverWait(self.browser, 30).until(EC.visibility_of_element_located(By.CSS_SELECTOR, "#summary" ))
         __enter_summary_field.send_keys(summary)
-        # for i in range(3):
-        #     try:
-        #         __summary_field = self.browser.find_element(By.CSS_SELECTOR, "#summary")
-        #         if __summary_field.is_displayed():
-        #             return __summary_field.send_keys("UI bug In Jira")
-        #     except (NoSuchElementException, StaleElementReferenceException):
-        #         time.sleep(5)
-        #         i += 1
-        #         print("Couldn't find element. Retrying... " + str(i) + " attempt")
 
 
     def enter_reporter(self):

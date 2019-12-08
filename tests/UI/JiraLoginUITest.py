@@ -1,5 +1,7 @@
 import time
 
+from selenium.webdriver.common.by import By
+
 from src.pages.login_page import LoginPage
 from src.pages.create_issue_page import CreateIssue
 from src.pages.main_page import MainPage
@@ -50,10 +52,10 @@ class TestJiraLoginUI:
         self.login_page.click_login_button_at_login_page()
         self.ticket_details_page = TicketDetails(browser)
         self.ticket_details_page.click_comment_button()
-        self.ticket_details_page.enter_comment_text()
+        self.ticket_details_page.enter_comment_text("comment_text")
         self.ticket_details_page.click_add_comment_button()
+        assert not self.ticket_details_page.comment_input_field_at_page(), "Comment not added"
         time.sleep(5)
-        assert not self.ticket_details_page.click_comment_button()
 
 
 
