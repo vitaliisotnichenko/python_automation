@@ -2,7 +2,11 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 import time
+
+from selenium.webdriver.support.wait import WebDriverWait
+
 from .base_page import BasePage
 
 class CreateIssue(BasePage):
@@ -20,9 +24,9 @@ class CreateIssue(BasePage):
     def choose_the_project(self, project_name):
          #type: (WebDriver) -> ()
         __project_field = self.browser.find_element(By.CSS_SELECTOR, "#project-field")
-        __project_field.clear()
-        __project_field.send_keys(project_name)
-        __project_field.send_keys(Keys.ENTER)
+        WebDriverWait(self.browser, 30).until_not(EC.text_to_be_present_in_element(By.CSS_SELECTOR, "#project-field")).clear()
+        return __project_field.send_keys(project_name)
+        # __project_field.send_keys(Keys.ENTER)
 
     def click_create_issue_button(self):
         for i in range(3):
@@ -36,10 +40,18 @@ class CreateIssue(BasePage):
                 i += 1
                 print("Couldn't find element. Retrying... " + str(i) + " attempt")
 
-    def enter_summary_field(self):
-        __summary_field = self.browser.find_element(By.CSS_SELECTOR, "#summary")
-        __summary_field.clear()
-        __summary_field.send_keys("UI bug In Jira")
+    def enter_summary_field(self, summary):
+        __enter_summary_field = WebDriverWait(self.browser, 30).until(EC.visibility_of_element_located(By.CSS_SELECTOR, "#summary" ))
+        __enter_summary_field.send_keys(summary)
+        # for i in range(3):
+        #     try:
+        #         __summary_field = self.browser.find_element(By.CSS_SELECTOR, "#summary")
+        #         if __summary_field.is_displayed():
+        #             return __summary_field.send_keys("UI bug In Jira")
+        #     except (NoSuchElementException, StaleElementReferenceException):
+        #         time.sleep(5)
+        #         i += 1
+        #         print("Couldn't find element. Retrying... " + str(i) + " attempt")
 
 
     def enter_reporter(self):
@@ -54,7 +66,7 @@ class CreateIssue(BasePage):
             try:
                 __issue = self.browser.find_element_by_css_selector(".aui-will-close")
                 if __issue.is_displayed():
-                    return str(__issue).text
+                    return __issue.text
             except (NoSuchElementException, StaleElementReferenceException):
                 time.sleep(5)
                 i += 1

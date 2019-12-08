@@ -1,6 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from .base_page import BasePage
 
 
@@ -18,14 +16,12 @@ class LoginPage(BasePage):
         __password_field.clear()
         __password_field.send_keys(password)
 
-    def click_login_button(self):
+    def click_login_button_at_main_page(self):
         __login_button = self.browser.find_element(By.CSS_SELECTOR, "#login").click()
 
+    def click_login_button_at_login_page(self):
+        __login_button = self.browser.find_element(By.CSS_SELECTOR, "#login-form-submit").click()
 
-    # def is_assigned_to_me_section(self):
-    #     __assigned_to_me_section = WebDriverWait(self.browser, 30).until(
-    #         EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text
-    #     assert "Assigned to Me" in __assigned_to_me_section
 
 
 
