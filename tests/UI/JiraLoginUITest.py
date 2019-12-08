@@ -1,7 +1,5 @@
 import time
 
-from selenium.webdriver.common.by import By
-
 from src.pages.login_page import LoginPage
 from src.pages.create_issue_page import CreateIssue
 from src.pages.main_page import MainPage
