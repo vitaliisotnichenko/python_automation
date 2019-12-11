@@ -1,16 +1,14 @@
-import time
 
 from src.pages.login_page import LoginPage
 from src.pages.create_issue_page import CreateIssue
 from src.pages.main_page import MainPage
 from src.pages.ticket_details_page import TicketDetails
-from selenium.webdriver.chrome.webdriver import WebDriver
+
 
 
 class TestJiraLoginUI:
 
     def test_login_to_jira(self, browser):
-        # type: (WebDriver) -> ()
         self.login_page = LoginPage(browser)
         self.login_page.open("http://jira.hillel.it:8080/secure/Dashboard.jspa")
         assert self.login_page.at_page()
@@ -52,7 +50,7 @@ class TestJiraLoginUI:
         self.ticket_details_page.enter_comment_text("comment_text")
         self.ticket_details_page.click_add_comment_button()
         assert not self.ticket_details_page.comment_input_field_at_page(), "Comment not added"
-        time.sleep(5)
+
 
 
 
