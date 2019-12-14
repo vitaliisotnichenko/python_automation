@@ -1,7 +1,5 @@
 class BasePage():
 
-    waitin_time = 10
-
     def __init__(self, browser, wait = 10):
         self.browser = browser
         self.wait = wait
