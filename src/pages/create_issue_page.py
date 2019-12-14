@@ -22,7 +22,7 @@ class CreateIssue(BasePage):
                     i += 1
 
     def choose_the_project(self, project_name):
-        wait = WebDriverWait(self.browser, 10)
+        wait = WebDriverWait(self.browser, self.wait)
         element = wait.until(EC.visibility_of_element_located((By.ID, 'project-field')))
         element.clear()
         element.send_keys(project_name)
@@ -30,7 +30,7 @@ class CreateIssue(BasePage):
     def click_create_issue_button(self):
         for i in range(3):
             try:
-                __create_issue_button = WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#create_link")))
+                __create_issue_button = WebDriverWait(self.browser, self.wait).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#create_link")))
                 if __create_issue_button.is_displayed():
                    return __create_issue_button.click()
 
@@ -42,7 +42,7 @@ class CreateIssue(BasePage):
     def enter_summary_field(self, summary):
         for i in range(3):
             try:
-                __enter_summary_field = WebDriverWait(self.browser, 30).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#summary")))
+                __enter_summary_field = WebDriverWait(self.browser, self.wait).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#summary")))
                 __enter_summary_field.send_keys(summary)
 
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException):

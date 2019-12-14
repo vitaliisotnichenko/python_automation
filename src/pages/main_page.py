@@ -15,7 +15,7 @@ class MainPage(BasePage):
         return "Create Issue" in __create_issue_title
 
     def is_assigned_to_me_section(self):
-        __assigned_to_me_section = WebDriverWait(self.browser, 30).until(
+        __assigned_to_me_section = WebDriverWait(self.browser, self.wait).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text
         return "Assigned to Me" in __assigned_to_me_section
 

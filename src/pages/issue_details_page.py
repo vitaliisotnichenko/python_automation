@@ -17,7 +17,7 @@ class IssueDetailsPage(BasePage):
     def click_issue_reporter_field(self):
         for i in range(3):
             try:
-                __reporter_field = WebDriverWait(self.browser, 10).until(
+                __reporter_field = WebDriverWait(self.browser, self.wait).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, "#assignee-val>span[class='user-hover']")))
                 return self.browser.find_element(By.CSS_SELECTOR, "#assignee-val>span[class='user-hover']").click()
 
