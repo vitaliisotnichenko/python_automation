@@ -1,8 +1,10 @@
+import time
 
 from src.pages.login_page import LoginPage
 from src.pages.create_issue_page import CreateIssue
 from src.pages.main_page import MainPage
 from src.pages.ticket_details_page import TicketDetails
+from src.pages.issue_details_page import IssueDetailsPage
 
 
 
@@ -50,6 +52,23 @@ class TestJiraLoginUI:
         self.ticket_details_page.enter_comment_text("comment_text")
         self.ticket_details_page.click_add_comment_button()
         assert not self.ticket_details_page.comment_input_field_at_page(), "Comment not added"
+
+    def test_change_assigner_for_the_ticket(self, browser):
+        self.login_page = LoginPage(browser)
+        self.login_page.open("http://jira.hillel.it:8080/secure/Dashboard.jspa")
+        self.login_page.login_to_jira_enter_username("webinar5")
+        self.login_page.login_to_jira_enter_password("webinar5")
+        self.login_page.click_login_button_at_main_page()
+        self.main_page = MainPage(browser)
+        self.main_page.click_the_first_ticket_assigned_to_me()
+        self.issue_details_page = IssueDetailsPage(browser)
+        self.issue_details_page.click_issue_reporter_field()
+        self.issue_details_page.enter_new_reporter("Artur Piluck")
+        assert "Artur Piluck" in self.issue_details_page.should_be_new_assigner()
+        self.issue_details_page.refresh_the_page()
+        assert "Artur Piluck" in self.issue_details_page.should_be_new_assigner()
+
+
 
 
 
