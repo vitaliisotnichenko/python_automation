@@ -38,18 +38,16 @@ class IssueDetailsPage(BasePage):
                         time.sleep(self.sleepTimeForRetry['fast'])
                         i += 1
 
-    def should_be_new_assigner(self):
+    def should_be_new_assigner(self, __expected_assigner):
         for i in range(3):
             try:
                 __is_new_assigner = self.browser.find_element(By.CSS_SELECTOR, "#assignee-val>span[class='user-hover']")
-                return __is_new_assigner.text
+                __name_of_assigner = __is_new_assigner.text
+                return __expected_assigner == __name_of_assigner
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
                     ElementNotInteractableException):
                 time.sleep(self.sleepTimeForRetry['fast'])
                 i +=1
-
-        __is_new_assigner = self.browser.find_element(By.CSS_SELECTOR, "#assignee-val>span[class='user-hover']")
-        return __is_new_assigner.text
 
 
     def refresh_the_page(self):

@@ -3,7 +3,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from selenium.webdriver.common.by import By
 from .base_page import BasePage
 
-class TicketDetails(BasePage):
+class CommentPage(BasePage):
 
     def click_comment_button(self):
         self.browser.find_element(By.CSS_SELECTOR, "#footer-comment-button").click()
