@@ -18,7 +18,7 @@ class CreateIssue(BasePage):
                 if "Create Issue" in __create_issue_title:
                     break
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
-                    time.sleep(5)
+                    time.sleep(self.sleepTimeForRetry['fast'])
                     i += 1
 
     def choose_the_project(self, project_name):
@@ -35,7 +35,7 @@ class CreateIssue(BasePage):
                    return __create_issue_button.click()
 
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
-                time.sleep(5)
+                time.sleep(self.sleepTimeForRetry['fast'])
                 i += 1
                 print("Couldn't find element. Retrying... " + str(i) + " attempt")
 
@@ -46,7 +46,7 @@ class CreateIssue(BasePage):
                 __enter_summary_field.send_keys(summary)
 
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException):
-                time.sleep(5)
+                time.sleep(self.sleepTimeForRetry['fast'])
                 i +=1
 
 
@@ -64,5 +64,5 @@ class CreateIssue(BasePage):
                 if __issue.is_displayed():
                     return __issue.text
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException):
-                time.sleep(5)
+                time.sleep(self.sleepTimeForRetry['fast'])
                 i += 1

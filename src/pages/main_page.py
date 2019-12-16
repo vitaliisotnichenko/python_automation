@@ -27,5 +27,5 @@ class MainPage(BasePage):
                     return __the_first_issue.click()
 
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
-                time.sleep(5)
+                time.sleep(self.sleepTimeForRetry['fast'])
                 i += 1

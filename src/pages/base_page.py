@@ -1,5 +1,7 @@
 class BasePage():
 
+    sleepTimeForRetry = {'slow':20, 'very fast': 10, 'fast': 5, 'medium': 10}
+
     def __init__(self, browser, wait = 10):
         self.browser = browser
         self.wait = wait
