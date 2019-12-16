@@ -11,7 +11,7 @@ from src.pages.base_page import BasePage
 
 class IssueDetailsPage(BasePage):
 
-    def is_edit_button_at_page(self):
+    def is_edit_button_present(self):
         __edit_button = self.browser.find_element(By.CSS_SELECTOR, "#edit-issue .trigger-label")
 
     def click_issue_reporter_field(self):
@@ -38,11 +38,11 @@ class IssueDetailsPage(BasePage):
                         time.sleep(5)
                         i += 1
 
-    def should_be_new_assigner(self):
+    def should_be_new_assigner(self, expected_assigner):
         for i in range(3):
             try:
                 __is_new_assigner = self.browser.find_element(By.CSS_SELECTOR, "#assignee-val>span[class='user-hover']")
-                return __is_new_assigner.text
+                return expected_assigner in __is_new_assigner.text
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
                     ElementNotInteractableException):
                 time.sleep(5)

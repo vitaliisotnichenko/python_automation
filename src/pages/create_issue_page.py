@@ -14,7 +14,7 @@ class CreateIssue(BasePage):
     def should_have_title(self):
         for i in range(3):
             try:
-                __create_issue_title = self.browser.find_element(By.CSS_SELECTOR, "[title=\"Create Issue\"]").text
+                __create_issue_title = self.browser.find_element(By.CSS_SELECTOR, "[title='Create Issue']").text
                 if "Create Issue" in __create_issue_title:
                     break
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):

@@ -11,7 +11,7 @@ from .base_page import BasePage
 class MainPage(BasePage):
 
     def is_create_issue_button(self):
-        __create_issue_title = self.browser.find_element_by_css_selector("[title=\"Create Issue\"]").text
+        __create_issue_title = self.browser.find_element_by_css_selector("[title='Create Issue']").text
         return "Create Issue" in __create_issue_title
 
     def is_assigned_to_me_section(self):
