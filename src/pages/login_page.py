@@ -6,7 +6,6 @@ class LoginPage(BasePage):
 
 
     def login_to_jira_enter_username(self, username):
-        # type: (WebDriver) -> ()
         __username_field = self.browser.find_element(By.CSS_SELECTOR, "#login-form-username")
         __username_field.clear()
         __username_field.send_keys(username)
