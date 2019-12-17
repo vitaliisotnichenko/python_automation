@@ -29,3 +29,4 @@ class MainPage(BasePage):
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
                 time.sleep(self.sleepTimeForRetry['fast'])
                 i += 1
+

@@ -22,6 +22,9 @@ class LoginPage(BasePage):
         __login_button = self.browser.find_element(By.CSS_SELECTOR, "#login-form-submit").click()
 
 
+    def is_invalid_message_present(self, error_message):
+        return error_message == self.browser.find_element(By.CSS_SELECTOR, "#usernameerror>p").text
+
 
 
 
