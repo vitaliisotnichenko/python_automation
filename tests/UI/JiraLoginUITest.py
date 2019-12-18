@@ -85,7 +85,6 @@ class TestJiraLoginUI:
         self.login_page.login_to_jira_enter_username(login)
         self.login_page.login_to_jira_enter_password(password)
         self.login_page.click_login_button_at_main_page()
-        time.sleep(5)
         assert self.login_page.is_invalid_message_present(rez)
 
 
