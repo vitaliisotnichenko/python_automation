@@ -27,14 +27,22 @@ pipeline {
       stage('Smoke') {
           steps {
              //Run only smoke test group
-               sh 'python3 -m pytest -v -m smoke'
+             sh '''
+                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
+                    . venv/bin/activate
+                    python3 -m pytest -v -m smoke
+                '''
 
          }
        }
       stage('Regression') {
            steps {
               //Run only regression group
-              sh 'python3 -m pytest -v -m regression'
+              sh '''
+                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
+                    . venv/bin/activate
+                    python3 -m pytest -v -m regression
+                 '''
            }
       }
 
