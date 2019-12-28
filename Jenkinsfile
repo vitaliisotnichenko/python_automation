@@ -14,7 +14,7 @@ pipeline {
 
             // Install libraries
             sh '''
-                    /Library/Frameworks/Python.framework/Versions/3.6/bin/python3 -m venv venv
+                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                     . venv/bin/activate
                     python3 -m pip install --ignore-installed -r requirements.txt
                 '''
@@ -27,10 +27,7 @@ pipeline {
       stage('Smoke') {
           steps {
              //Run only smoke test group
-               sh '''
-                      python3 -m pytest -v -m smoke
-
-                  '''
+               sh 'python3 -m pytest -v -m smoke'
 
          }
        }
