@@ -30,7 +30,7 @@ pipeline {
              sh '''
                     /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                     . venv/bin/activate
-                    python3 -m pytest -v -m smoke
+                    python3 -m pytest -v -m smoke  --ignore-installed
                 '''
 
          }
@@ -41,7 +41,7 @@ pipeline {
               sh '''
                     /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                     . venv/bin/activate
-                    python3 -m pytest -v -m regression
+                    python3 -m pytest -v -m regression  --ignore-installed
                  '''
            }
       }
