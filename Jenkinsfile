@@ -27,10 +27,13 @@ pipeline {
       stage('Smoke') {
           steps {
              //Run only smoke test group
-               sh 'python3 -m pytest -v -m smoke'
+               sh '''
+                      python3 -m pytest -v -m smoke
+
+                  '''
 
          }
-
+       }
       stage('Regression') {
            steps {
               //Run only regression group
