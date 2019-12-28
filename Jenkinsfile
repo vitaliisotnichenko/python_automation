@@ -17,12 +17,27 @@ pipeline {
                     /Library/Frameworks/Python.framework/Versions/3.6/bin/python3 -m venv venv
                     . venv/bin/activate
                     python3 -m pip install --ignore-installed -r requirements.txt
-                    python3 -m pytest
                 '''
 
             // To run Maven on a Windows agent, use
             // bat "mvn -Dmaven.test.failure.ignore=true clean package"
          }
+      }
+
+      stage('Smoke') {
+          steps {
+             //Run only smoke test group
+               sh 'python3 -m pytest -v -m smoke'
+
+         }
+
+      stage('Regression') {
+           steps {
+              //Run only regression group
+              sh 'python3 -m pytest -v -m regression'
+           }
+      }
+
       }
    }
 }

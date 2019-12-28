@@ -13,7 +13,7 @@ from src.pages.issue_details_page import IssueDetailsPage
 
 class TestJiraLoginUI:
 
-
+    @pytest.mark.smoke
     def test_login_to_jira(self, browser):
         self.login_page = LoginPage(browser)
         self.login_page.open(url_ui)
@@ -25,7 +25,7 @@ class TestJiraLoginUI:
         self.main_page.is_assigned_to_me_section()
         assert self.main_page.is_assigned_to_me_section()
 
-
+    @pytest.mark.smoke
     def test_create_issue_in_jira(self, browser):
         self.login_page = LoginPage(browser)
         self.login_page.open("http://jira.hillel.it:8080/secure/Dashboard.jspa")
@@ -44,7 +44,7 @@ class TestJiraLoginUI:
         self.create_issue_page.click_create_issue_button()
         assert self.create_issue_page.is_alert_present()
 
-
+    @pytest.mark.regression
     def test_add_comment_to_the_ticket(self, browser):
         self.login_page = LoginPage(browser)
         self.login_page.open("https://jira.hillel.it/browse/WEBINAR-9060")
@@ -57,6 +57,7 @@ class TestJiraLoginUI:
         self.comment_page_page.click_add_comment_button()
         assert not self.comment_page_page.comment_input_field_at_page(), "Comment not added"
 
+    @pytest.mark.regression
     def test_change_assigner_for_the_ticket(self, browser):
         self.login_page = LoginPage(browser)
         self.login_page.open("http://jira.hillel.it:8080/secure/Dashboard.jspa")
@@ -73,6 +74,7 @@ class TestJiraLoginUI:
         assert self.issue_details_page.should_be_new_assigner("Artur Piluck")
 
 
+    @pytest.mark.regression
     @pytest.mark.parametrize("login, password, rez",
     [
         ("admin", "password", "Sorry, your username and password are incorrect - please try again.")
