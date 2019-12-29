@@ -89,15 +89,6 @@ class TestJiraLoginUI:
         self.login_page.click_login_button_at_main_page()
         assert self.login_page.is_invalid_message_present(rez)
 
-    def test_with_invalid_login_to_jira_using_fixture(self, browser, parameters_email, parameters_password, parameters_result):
-        self.login_page = LoginPage(browser)
-        self.login_page.open(url_ui)
-        assert self.login_page.at_page()
-        self.login_page.login_to_jira_enter_username(parameters_email)
-        self.login_page.login_to_jira_enter_password(parameters_password)
-        self.login_page.click_login_button_at_main_page()
-        assert self.login_page.is_invalid_message_present(parameters_result)
-
 
 
 
