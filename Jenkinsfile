@@ -20,7 +20,7 @@ pipeline {
           steps {
              //Run only smoke test group
              sh '''
-                   python3 -m pytest -m smoke -v
+                   pytest -m smoke -v
                 '''
 
          }
