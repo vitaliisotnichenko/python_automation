@@ -29,7 +29,7 @@ pipeline {
            steps {
               //Run only regression group
               sh '''
-                    python3 -m pytest -m regression -v
+                    pytest -m regression -v
                  '''
            }
       }
