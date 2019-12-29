@@ -28,9 +28,9 @@ pipeline {
           steps {
              //Run only smoke test group
              sh '''
-                #   /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
-                #   . venv/bin/activate
-                    python3 -m pytest -v -m smoke
+                   /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
+                   . venv/bin/activate
+                    python3 -m pytes -m smoke -v
                 '''
 
          }
@@ -39,9 +39,9 @@ pipeline {
            steps {
               //Run only regression group
               sh '''
-                 #   /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
-                  #  . venv/bin/activate
-                    python3 -m pytest -v -m regression
+                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
+                    . venv/bin/activate
+                    python3 -m pytest -m regression -v
                  '''
            }
       }
