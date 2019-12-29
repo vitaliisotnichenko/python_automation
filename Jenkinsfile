@@ -1,11 +1,6 @@
 pipeline {
    agent any
 
-//    tools {
-      // Install the Maven version configured as "M3" and add it to the path.
-//       maven "maven 3"
-//    }
-
    stages {
       stage('Build') {
          steps {
@@ -17,10 +12,7 @@ pipeline {
                     /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                     . venv/bin/activate
                     python3 -m pip install --ignore-installed -r requirements.txt
-                '''
-
-            // To run Maven on a Windows agent, use
-            // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+               '''
          }
       }
 
@@ -28,8 +20,6 @@ pipeline {
           steps {
              //Run only smoke test group
              sh '''
-                   /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
-                   . venv/bin/activate
                    python3 -m pytest -m smoke -v
                 '''
 
@@ -39,8 +29,6 @@ pipeline {
            steps {
               //Run only regression group
               sh '''
-                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
-                    . venv/bin/activate
                     python3 -m pytest -m regression -v
                  '''
            }
