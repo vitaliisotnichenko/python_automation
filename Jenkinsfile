@@ -30,7 +30,7 @@ pipeline {
              sh '''
                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                    . venv/bin/activate
-                    python3 -m pytes -m smoke -v
+                    python3 -m pytest -m smoke -v
                 '''
 
          }
