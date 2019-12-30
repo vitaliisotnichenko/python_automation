@@ -5,7 +5,7 @@ pipeline {
       stage('Build') {
          steps {
             // Get some code from a GitHub repository
-            git 'https://github.com/archick12/python_automation.git'
+            git 'https://github.com/vitaliisotnichenko/python_automation'
 
             // Install libraries
             sh '''
