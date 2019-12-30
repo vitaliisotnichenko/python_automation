@@ -16,6 +16,29 @@ pipeline {
                '''
          }
       }
+
+      stage('Smoke') {
+          steps {
+             //Run only smoke test group
+             sh '''
+                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
+                    . venv/bin/activate
+                    python3 -m pytest -m smoke -v
+                '''
+
+         }
+       }
+      stage('Regression') {
+           steps {
+              //Run only regression group
+              sh '''
+                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
+                    . venv/bin/activate
+                    python3 -m pytest -m regression -v
+                 '''
+           }
+      }
+
     }
 
   }
