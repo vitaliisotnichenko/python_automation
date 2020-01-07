@@ -26,6 +26,8 @@ class CreateIssue(BasePage):
         element = wait.until(EC.visibility_of_element_located((By.ID, 'project-field')))
         element.clear()
         element.send_keys(project_name)
+        element.send_keys(Keys.TAB)
+        self.wait_for_spinner()
 
     def click_create_issue_button(self):
         for i in range(3):
@@ -35,7 +37,19 @@ class CreateIssue(BasePage):
                    return __create_issue_button.click()
 
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
-                time.sleep(self.sleepTimeForRetry['fast'])
+                time.sleep(self.sleepTimeForRetry['medium'])
+                i += 1
+                print("Couldn't find element. Retrying... " + str(i) + " attempt")
+
+    def click_create_issue_button_at_details_page(self):
+        for i in range(3):
+            try:
+                __create_issue_button = WebDriverWait(self.browser, self.wait).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#create-issue-submit")))
+                if __create_issue_button.is_displayed():
+                   return __create_issue_button.click()
+
+            except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
+                time.sleep(self.sleepTimeForRetry['medium'])
                 i += 1
                 print("Couldn't find element. Retrying... " + str(i) + " attempt")
 
@@ -46,16 +60,32 @@ class CreateIssue(BasePage):
                 __enter_summary_field.send_keys(summary)
 
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException):
+                time.sleep(self.sleepTimeForRetry['medium'])
+                i +=1
+
+    def wait_for_spinner(self):
+        for i in range(2):
+            try:
+                __spinner = WebDriverWait(self.browser, 20).until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".aui-spinner")))
+                time.sleep(self.sleepTimeForRetry['fast'])
+                return True
+
+            except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException):
                 time.sleep(self.sleepTimeForRetry['fast'])
                 i +=1
 
 
+    def enter_reporter(self, reporter):
+        for i in range(3):
+            try:
+                __reporter_field = WebDriverWait(self.browser, self.wait).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#reporter-field")))
+                __reporter_field.clear()
+                __reporter_field.send_keys(reporter)
+                __reporter_field.send_keys(Keys.TAB)
 
-    def enter_reporter(self):
-        __reporter_field = self.browser.find_element(By.CSS_SELECTOR, "#reporter-field")
-        __reporter_field.clear()
-        __reporter_field.send_keys("webinar5")
-        __reporter_field.send_keys(Keys.ENTER)
+            except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException):
+                time.sleep(self.sleepTimeForRetry['medium'])
+                i +=1
 
     def is_alert_present(self):
         for i in range(3):

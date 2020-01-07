@@ -38,10 +38,10 @@ class TestJiraLoginUI:
         self.create_issue_page = CreateIssue(browser)
         self.create_issue_page.click_create_issue_button()
         self.create_issue_page.should_have_title()
-        self.create_issue_page.choose_the_project("Webinar WEBINAR")
+        self.create_issue_page.choose_the_project("Webinar (WEBINAR)")
         self.create_issue_page.enter_summary_field("UI bug In Jira")
-        self.create_issue_page.enter_reporter()
-        self.create_issue_page.click_create_issue_button()
+        self.create_issue_page.enter_reporter("webinar5")
+        self.create_issue_page.click_create_issue_button_at_details_page()
         assert self.create_issue_page.is_alert_present()
 
     @pytest.mark.regression
