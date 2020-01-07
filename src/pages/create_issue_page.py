@@ -29,18 +29,6 @@ class CreateIssue(BasePage):
         element.send_keys(Keys.TAB)
         self.wait_for_spinner()
 
-    def click_create_issue_button(self):
-        for i in range(3):
-            try:
-                __create_issue_button = WebDriverWait(self.browser, self.wait).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#create_link")))
-                if __create_issue_button.is_displayed():
-                   return __create_issue_button.click()
-
-            except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
-                time.sleep(self.sleepTimeForRetry['medium'])
-                i += 1
-                print("Couldn't find element. Retrying... " + str(i) + " attempt")
-
     def click_create_issue_button_at_details_page(self):
         for i in range(3):
             try:
@@ -57,11 +45,11 @@ class CreateIssue(BasePage):
         for i in range(3):
             try:
                 __enter_summary_field = WebDriverWait(self.browser, self.wait).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#summary")))
-                __enter_summary_field.send_keys(summary)
 
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException):
                 time.sleep(self.sleepTimeForRetry['medium'])
                 i +=1
+        __enter_summary_field.send_keys(summary)
 
     def wait_for_spinner(self):
         for i in range(2):
