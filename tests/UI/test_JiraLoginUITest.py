@@ -74,20 +74,20 @@ class TestJiraLoginUI:
         assert self.issue_details_page.should_be_new_assigner("Artur Piluck")
 
 
-    # @pytest.mark.regression
-    # @pytest.mark.parametrize("login, password, rez",
-    # [
-    #     ("admin", "password", "Sorry, your username and password are incorrect - please try again.")
-    #
-    # ])
-    # def test_with_invalid_login_to_jira(self, browser, login, password, rez):
-    #     self.login_page = LoginPage(browser)
-    #     self.login_page.open(url_ui)
-    #     assert self.login_page.at_page()
-    #     self.login_page.login_to_jira_enter_username(login)
-    #     self.login_page.login_to_jira_enter_password(password)
-    #     self.login_page.click_login_button_at_main_page()
-    #     assert self.login_page.is_invalid_message_present(rez)
+    @pytest.mark.regression
+    @pytest.mark.parametrize("login, password, rez",
+    [
+        ("admin", "password", "Sorry, your username and password are incorrect - please try again.")
+
+    ])
+    def test_with_invalid_login_to_jira(self, browser, login, password, rez):
+        self.login_page = LoginPage(browser)
+        self.login_page.open(url_ui)
+        assert self.login_page.at_page()
+        self.login_page.login_to_jira_enter_username(login)
+        self.login_page.login_to_jira_enter_password(password)
+        self.login_page.click_login_button_at_main_page()
+        assert self.login_page.is_invalid_message_present(rez)
 
 
 
