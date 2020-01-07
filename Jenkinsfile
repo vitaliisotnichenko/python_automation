@@ -5,7 +5,7 @@ pipeline {
       stage('Build') {
          steps {
             // Get some code from a GitHub repository
-            git 'https://github.com/vitaliisotnichenko/python_automation'
+            git branch:'jenkins_integration', url:'https://github.com/vitaliisotnichenko/python_automation'
 
             // Install libraries
             sh '''
