@@ -30,11 +30,12 @@ class IssueDetailsPage(BasePage):
         for i in range(5):
             try:
                 if self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").clear():
-                        break
+                    return True
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
                     ElementClickInterceptedException):
                     time.sleep(self.sleepTimeForRetry['medium'])
                     i+=1
+
         self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(name)
         self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(Keys.TAB)
         self.browser.find_element(By.CSS_SELECTOR, ".aui-iconfont-success").click()
