@@ -33,7 +33,7 @@ class IssueDetailsPage(BasePage):
                         break
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
                     ElementClickInterceptedException):
-                    time.sleep(self.sleepTimeForRetry['fast'])
+                    time.sleep(self.sleepTimeForRetry['medium'])
                     i+=1
         self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(name)
         self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(Keys.TAB)
@@ -47,7 +47,7 @@ class IssueDetailsPage(BasePage):
                 return __expected_assigner == __name_of_assigner
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
                     ElementNotInteractableException):
-                time.sleep(self.sleepTimeForRetry['fast'])
+                time.sleep(self.sleepTimeForRetry['medium'])
                 i +=1
 
 
