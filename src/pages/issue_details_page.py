@@ -35,7 +35,6 @@ class IssueDetailsPage(BasePage):
                     ElementClickInterceptedException):
                     time.sleep(self.sleepTimeForRetry['medium'])
                     i+=1
-        time.sleep(2)
         self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(name)
         self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(Keys.TAB)
         self.browser.find_element(By.CSS_SELECTOR, ".aui-iconfont-success").click()
