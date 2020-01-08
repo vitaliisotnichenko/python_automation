@@ -34,7 +34,7 @@ class MainPage(BasePage):
     def click_the_first_ticket_assigned_to_me(self):
         for i in range(3):
             try:
-                __the_first_issue = self.browser.find_element_by_css_selector(".hide-carrot tr:nth-child(1)[class='issuerow']>td+[class=issuekey]")
+                __the_first_issue = self.browser.find_element_by_css_selector(".hide-carrot tr:nth-child(1)[class='issuerow']>td+[class=issuekey]>a")
                 if __the_first_issue.is_displayed():
                     return __the_first_issue.click()
 
