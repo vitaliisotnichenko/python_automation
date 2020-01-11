@@ -14,7 +14,7 @@ from src.pages.issue_details_page import IssueDetailsPage
 
 class TestJiraLoginUI:
 
-    @allure.feature('Login')
+    # @allure.feature('Login')
     @pytest.mark.smoke
     def test_login_to_jira(self, browser):
         self.login_page = LoginPage(browser)
