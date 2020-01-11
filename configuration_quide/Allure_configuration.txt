@@ -1,0 +1,13 @@
+Set up Allure for the project
+
+1. Add allure-pytest library to requirements.txt file indicated the last version (for example, allure-pytest==2.8.6)
+2. Move to other file and install this library
+3. Using pip list to check that allure-pytest was installed
+4. To generate html reports install allure commandline (for MacOS you may use next command - brew install allure)
+5. Add additional argument to pytest configuration --alluredir where allure reports will be store - alluredir=/path
+and run your test cases using Pytest framework
+6. To generate allure report execute next command using path where allure reports store - allure serve /path
+7. Get pleasure to analyze results
+
+P.S. Sometimes it's challenge to choose correct version pytest to get allure report
+
