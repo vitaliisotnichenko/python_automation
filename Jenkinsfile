@@ -15,7 +15,7 @@ pipeline {
                '''
          }
       }
-      try{
+//       try{
         stage('Smoke') {
           steps {
              //Run only smoke test group
@@ -37,14 +37,14 @@ pipeline {
                  '''
                 }
             }
-        }
-      catch (e) {
-            currentBuild.result = 'FAILURE'
-            throw e
-
-            }
-
-      finally{
+//         }
+//       catch (e) {
+//             currentBuild.result = 'FAILURE'
+//             throw e
+//
+//             }
+//
+//       finally{
       stage('Reports') {
             steps {
                 allure([
@@ -57,7 +57,7 @@ pipeline {
              }
           }
 
-        }
+//         }
     }
 
   }
