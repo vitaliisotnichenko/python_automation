@@ -16,7 +16,7 @@ pipeline {
          }
       }
       try{
-      stage('Smoke') {
+        stage('Smoke') {
           steps {
              //Run only smoke test group
              sh '''
@@ -25,9 +25,9 @@ pipeline {
                     python3 -m pytest -m smoke -v
                 '''
 
-         }
-       }
-      stage('Regression') {
+                }
+            }
+        stage('Regression') {
            steps {
               //Run only regression group
               sh '''
@@ -35,14 +35,16 @@ pipeline {
                     . venv/bin/activate
                     python3 -m pytest -m regression -v
                  '''
-           }
-      }
-      }
+                }
+            }
+        }
       catch (e) {
             currentBuild.result = 'FAILURE'
             throw e
 
-    finally{
+            }
+
+      finally{
       stage('Reports') {
             steps {
                 allure([
@@ -53,20 +55,10 @@ pipeline {
                     results: [[path: 'target/allure-results']]
                 ])
              }
-        }
+          }
 
-       }
+        }
     }
 
   }
 
-  try {
-
-            tests.notifySlack()
-
-            tests.runTests("${XML_CONFIG}")
-
-
-        } catch (e) {
-            currentBuild.result = 'FAILURE'
-            throw e
