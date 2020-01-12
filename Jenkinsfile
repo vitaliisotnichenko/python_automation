@@ -3,6 +3,8 @@ pipeline {
 
    stages {
       stage('Build') {
+
+      try{
          steps {
             // Get some code from a GitHub repository
             git branch:'jenkins_integration', url:'https://github.com/vitaliisotnichenko/python_automation'
@@ -15,7 +17,7 @@ pipeline {
                '''
          }
       }
-//       try{
+
         stage('Smoke') {
           steps {
              //Run only smoke test group
@@ -24,7 +26,6 @@ pipeline {
                     . venv/bin/activate
                     python3 -m pytest -m smoke -v
                 '''
-
                 }
             }
         stage('Regression') {
@@ -37,27 +38,26 @@ pipeline {
                  '''
                 }
             }
-//         }
-//       catch (e) {
-//             currentBuild.result = 'FAILURE'
-//             throw e
-//
-//             }
-//
-//       finally{
-      stage('Reports') {
-            steps {
-                allure([
-                    includeProperties: false,
-                    jdk: '',
-                    properties: [],
-                    reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'target/allure-results']]
-                ])
-             }
-          }
+        }
 
-//         }
+        catch (e) {
+            currentBuild.result = 'FAILURE'
+            throw e
+        }
+
+        finally {
+            stage('Reports') {
+                steps {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'target/allure-results']]
+                    ])
+                }
+            }
+        }
     }
 
   }
