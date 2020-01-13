@@ -42,6 +42,8 @@ pipeline {
                  }
             }
 
+        }
+
       post {
                 always {
                     allure([
@@ -52,8 +54,7 @@ pipeline {
                         results: [[path: 'target/allure-results']]
                     ])
                     }
-                }
-       }
+            }
 
   }
 
