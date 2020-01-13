@@ -18,7 +18,7 @@ pipeline {
                 }
            }
 
-        stage('Smoke') {
+      stage('Smoke') {
           steps {
              //Run only smoke test group
 
@@ -30,7 +30,7 @@ pipeline {
                 }
 
              }
-        stage('Regression') {
+      stage('Regression') {
            steps {
               //Run only regression group
                 sh '''
@@ -42,8 +42,8 @@ pipeline {
                  }
             }
 
-            stage('Reports') {
-                steps {
+      post ('Reports') {
+                always {
                     allure([
                         includeProperties: false,
                         jdk: '',
