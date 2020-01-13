@@ -51,7 +51,7 @@ pipeline {
                         jdk: '',
                         properties: [],
                         reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'allure-report']]
+                        results: [[path: '/Users/vitaliisotnichenko/.jenkins/workspace/Jira_automation_tests/allure-report']]
                     ])
                     }
             }
