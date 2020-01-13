@@ -21,38 +21,26 @@ pipeline {
           steps {
              //Run only smoke test group
 
-             try{
                 sh '''
                     /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                     . venv/bin/activate
                     python3 -m pytest -m smoke -v
-                    '''
-                } catch (e) {
-            currentBuild.result = 'FAILURE'
-            throw e
-            }
-
+                   '''
             }
 
          }
         stage('Regression') {
            steps {
               //Run only regression group
-              try{
                 sh '''
                     /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                     . venv/bin/activate
                     python3 -m pytest -m regression -v
                     '''
-                 } catch (e) {
-            currentBuild.result = 'FAILURE'
-            throw e
-            }
 
             }
         }
 
-        finally {
             stage('Reports') {
                 steps {
                     allure([
@@ -64,7 +52,6 @@ pipeline {
                     ])
                 }
             }
-        }
     }
 
   }
