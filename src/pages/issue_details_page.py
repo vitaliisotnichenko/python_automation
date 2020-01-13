@@ -27,17 +27,17 @@ class IssueDetailsPage(BasePage):
                     i += 1
 
     def enter_new_reporter(self, name):
-        for i in range(5):
+        for i in range(2):
             try:
-                 element = self.browser.find_element(By.CSS_SELECTOR, "#assignee-field")
-                 if element is not name:
-                     return element.clear()
+                 if self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(name):
+                     return True
+
 
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
                     ElementClickInterceptedException):
                     time.sleep(self.sleepTimeForRetry['medium'])
                     i+=1
-        self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(name)
+
         self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(Keys.TAB)
         self.browser.find_element(By.CSS_SELECTOR, ".aui-iconfont-success").click()
 
