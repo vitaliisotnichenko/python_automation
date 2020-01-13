@@ -4,7 +4,7 @@ pipeline {
    stages {
       stage('Build') {
 
-      try{
+
          steps {
             // Get some code from a GitHub repository
             git branch:'jenkins_integration', url:'https://github.com/vitaliisotnichenko/python_automation'
@@ -15,34 +15,41 @@ pipeline {
                     . venv/bin/activate
                     python3 -m pip install --ignore-installed -r requirements.txt
                '''
-         }
-      }
+          }
 
         stage('Smoke') {
           steps {
              //Run only smoke test group
-             sh '''
+
+             try{
+                sh '''
                     /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                     . venv/bin/activate
                     python3 -m pytest -m smoke -v
-                '''
-                }
+                    '''
+                } catch (e) {
+            currentBuild.result = 'FAILURE'
+            throw e
             }
+
+            }
+
+         }
         stage('Regression') {
            steps {
               //Run only regression group
-              sh '''
+              try{
+                sh '''
                     /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
                     . venv/bin/activate
                     python3 -m pytest -m regression -v
-                 '''
-                }
-            }
-        }
-
-        catch (e) {
+                    '''
+                 } catch (e) {
             currentBuild.result = 'FAILURE'
             throw e
+            }
+
+            }
         }
 
         finally {
