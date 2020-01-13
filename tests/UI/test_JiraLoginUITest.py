@@ -14,7 +14,6 @@ from src.pages.issue_details_page import IssueDetailsPage
 
 class TestJiraLoginUI:
 
-    # @allure.feature('Login')
     @pytest.mark.smoke
     def test_login_to_jira(self, browser):
         self.login_page = LoginPage(browser)
@@ -27,7 +26,6 @@ class TestJiraLoginUI:
         self.main_page.is_assigned_to_me_section()
         assert self.main_page.is_assigned_to_me_section()
 
-    @allure.feature('Create Issue')
     @pytest.mark.smoke
     def test_create_issue_in_jira(self, browser):
         self.login_page = LoginPage(browser)
@@ -47,7 +45,7 @@ class TestJiraLoginUI:
         self.create_issue_page.click_create_issue_button_at_details_page()
         assert self.create_issue_page.is_alert_present()
 
-    @allure.feature('Comment')
+
     @pytest.mark.regression
     def test_add_comment_to_the_ticket(self, browser):
         self.login_page = LoginPage(browser)
@@ -61,7 +59,7 @@ class TestJiraLoginUI:
         self.comment_page_page.click_add_comment_button()
         assert not self.comment_page_page.comment_input_field_at_page(), "Comment not added"
 
-    @allure.feature('Change assigner')
+
     @pytest.mark.regression
     def test_change_assigner_for_the_ticket(self, browser):
         self.login_page = LoginPage(browser)
@@ -78,7 +76,7 @@ class TestJiraLoginUI:
         self.issue_details_page.refresh_the_page()
         assert self.issue_details_page.should_be_new_assigner("Artur Piluck")
 
-    @allure.feature('Login')
+
     @pytest.mark.regression
     @pytest.mark.parametrize("login, password, rez",
     [

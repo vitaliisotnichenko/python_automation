@@ -29,8 +29,10 @@ class IssueDetailsPage(BasePage):
     def enter_new_reporter(self, name):
         for i in range(5):
             try:
-                if self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").clear():
-                    return True
+                 element = self.browser.find_element(By.CSS_SELECTOR, "#assignee-field")
+                 if element is not name:
+                     return element.clear()
+
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
                     ElementClickInterceptedException):
                     time.sleep(self.sleepTimeForRetry['medium'])
