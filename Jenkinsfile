@@ -15,7 +15,8 @@ pipeline {
                     . venv/bin/activate
                     python3 -m pip install --ignore-installed -r requirements.txt
                '''
-          }
+                }
+           }
 
         stage('Smoke') {
           steps {
@@ -26,9 +27,9 @@ pipeline {
                     . venv/bin/activate
                     python3 -m pytest -m smoke -v
                    '''
-            }
+                }
 
-         }
+             }
         stage('Regression') {
            steps {
               //Run only regression group
@@ -38,8 +39,8 @@ pipeline {
                     python3 -m pytest -m regression -v
                     '''
 
+                 }
             }
-        }
 
             stage('Reports') {
                 steps {
@@ -50,9 +51,9 @@ pipeline {
                         reportBuildPolicy: 'ALWAYS',
                         results: [[path: 'target/allure-results']]
                     ])
+                    }
                 }
-            }
-    }
+       }
 
   }
 
