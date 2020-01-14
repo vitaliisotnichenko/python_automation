@@ -23,20 +23,23 @@ class IssueDetailsPage(BasePage):
 
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
                 ElementClickInterceptedException):
-                    time.sleep(self.sleepTimeForRetry['fast'])
+                    time.sleep(self.sleepTimeForRetry['medium'])
                     i += 1
 
     def enter_new_reporter(self, name):
-            for i in range(3):
-                try:
-                    self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(name)
-                    self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(Keys.ENTER)
-                    self.browser.find_element(By.CSS_SELECTOR, ".aui-iconfont-success").click()
+        for i in range(2):
+            try:
+                 if self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(name):
+                     return True
 
-                except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
+
+            except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
                     ElementClickInterceptedException):
-                        time.sleep(self.sleepTimeForRetry['fast'])
-                        i += 1
+                    time.sleep(self.sleepTimeForRetry['medium'])
+                    i+=1
+
+        self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(Keys.TAB)
+        self.browser.find_element(By.CSS_SELECTOR, ".aui-iconfont-success").click()
 
     def should_be_new_assigner(self, __expected_assigner):
         for i in range(3):
@@ -46,7 +49,7 @@ class IssueDetailsPage(BasePage):
                 return __expected_assigner == __name_of_assigner
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
                     ElementNotInteractableException):
-                time.sleep(self.sleepTimeForRetry['fast'])
+                time.sleep(self.sleepTimeForRetry['medium'])
                 i +=1
 
 
