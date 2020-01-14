@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
-    sleepTimeForRetry = {'slow': 20, 'very fast': 10, 'fast': 5, 'medium': 10}
+    sleepTimeForRetry = {'slow': 20, 'medium': 15, 'fast': 5, 'very fast': 3}
 
     def __init__(self, browser, wait=10):
         self.browser = browser
