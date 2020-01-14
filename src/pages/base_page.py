@@ -1,8 +1,16 @@
-class BasePage():
+import time
 
-    sleepTimeForRetry = {'slow':20, 'very fast': 10, 'fast': 5, 'medium': 10}
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, \
+    ElementClickInterceptedException, ElementNotInteractableException
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-    def __init__(self, browser, wait = 10):
+
+class BasePage:
+    sleepTimeForRetry = {'slow': 20, 'very fast': 10, 'fast': 5, 'medium': 10}
+
+    def __init__(self, browser, wait=10):
         self.browser = browser
         self.wait = wait
 
@@ -13,3 +21,15 @@ class BasePage():
     def at_page(self):
         return "System Dashboard - Hillel IT School JIRA" in self.browser.title
 
+    def wait_element_to_be_present(self, locator) -> WebElement:
+        for i in range(3):
+            try:
+                __create_issue_button = WebDriverWait(self.browser, self.wait).until(
+                    EC.element_to_be_clickable(locator))
+                if __create_issue_button.is_displayed():
+                    return __create_issue_button
+
+            except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
+                    ElementNotInteractableException):
+                time.sleep(self.sleepTimeForRetry['medium'])
+                i += 1

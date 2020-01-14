@@ -1,16 +1,10 @@
-import time
-
-import allure
 import pytest
-
 from global_scope import global_user, global_pass, url_ui
 from src.pages.login_page import LoginPage
 from src.pages.create_issue_page import CreateIssue
 from src.pages.main_page import MainPage
 from src.pages.comment_page import CommentPage
 from src.pages.issue_details_page import IssueDetailsPage
-
-
 
 class TestJiraLoginUI:
 
