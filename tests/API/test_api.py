@@ -37,10 +37,11 @@ class Test_Api:
         r = requests.post('https://jira.hillel.it/rest/api/2/issue', auth=HTTPBasicAuth('webinar5', 'webinar5'), json=payload)
         assert r.status_code == 201
         body = r.json()
+        assert body['key'].startswith('WEBINAR')
         print(body)
-        issue_key = body["key"]
-        d = requests.delete("https://jira.hillel.it/rest/api/2/issue/" + issue_key, auth=HTTPBasicAuth('webinar5', 'webinar5'))
-        assert d.status_code == 204
+        # issue_key = body["key"]
+        # d = requests.delete("https://jira.hillel.it/rest/api/2/issue/" + issue_key, auth=HTTPBasicAuth('webinar5', 'webinar5'))
+        # assert d.status_code == 204
 
 
 
