@@ -7,7 +7,7 @@ pipeline {
 
          steps {
             // Get some code from a GitHub repository
-            git $BRANCH_NAME, url:'https://github.com/vitaliisotnichenko/python_automation'
+            git ${BRANCH_NAME}, url:'https://github.com/vitaliisotnichenko/python_automation'
 
             // Install libraries
             sh '''
