@@ -1,7 +1,4 @@
-import time
 
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, \
-    ElementNotInteractableException, ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from .base_page import BasePage
 
@@ -25,15 +22,9 @@ class LoginPage(BasePage):
     def click_login_button_at_login_page(self):
         __login_button = self.browser.find_element(By.CSS_SELECTOR, "#login-form-submit").click()
 
-
     def is_invalid_message_present(self, error_message):
-        for i in range(3):
-            try:
-                if self.browser.find_element(By.CSS_SELECTOR, "#usernameerror>p").is_displayed():
-                    return error_message == self.browser.find_element(By.CSS_SELECTOR, "#usernameerror>p").text
-            except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, ElementClickInterceptedException):
-                time.sleep(self.sleepTimeForRetry['fast'])
-                i += 1
+        self.text_of_element_to_be_present((By.CSS_SELECTOR, "#usernameerror>p"))
+
 
 
 

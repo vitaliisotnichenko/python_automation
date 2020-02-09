@@ -1,44 +1,21 @@
-import time
 
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, \
-    ElementClickInterceptedException, ElementNotInteractableException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 from .base_page import BasePage
 
 class MainPage(BasePage):
 
     def is_create_issue_button(self):
-        __create_issue_title = self.browser.find_element_by_css_selector("[title='Create Issue']").text
+        __create_issue_title = self.browser.find_element(By.CSS_SELECTOR, "[title='Create Issue']").text
         return "Create Issue" in __create_issue_title
 
     def click_create_issue_button(self):
-        for i in range(3):
-            try:
-                __create_issue_button = WebDriverWait(self.browser, self.wait).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#create_link")))
-                if __create_issue_button.is_displayed():
-                   return __create_issue_button.click()
-
-            except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
-                time.sleep(self.sleepTimeForRetry['medium'])
-                i += 1
-                print("Couldn't find element. Retrying... " + str(i) + " attempt")
+        self.wait_element_to_be_clickable((By.CSS_SELECTOR, "#create_link")).click()
 
     def is_assigned_to_me_section(self):
-        __assigned_to_me_section = WebDriverWait(self.browser, self.wait).until(
-            EC.visibility_of_element_located((By.CSS_SELECTOR, "#gadget-10002-title"))).text
-        return "Assigned to Me" in __assigned_to_me_section
+        __element = self.wait_element_to_be_located((By.CSS_SELECTOR, "#gadget-10002-title")).text
+        return "Assigned to Me" in __element
 
     def click_the_first_ticket_assigned_to_me(self):
-        for i in range(3):
-            try:
-                __the_first_issue = self.browser.find_element_by_css_selector(".hide-carrot tr:nth-child(1)[class='issuerow']>td+[class=issuekey]>a")
-                if __the_first_issue.is_displayed():
-                    return __the_first_issue.click()
-
-            except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException, ElementNotInteractableException):
-                time.sleep(self.sleepTimeForRetry['fast'])
-                i += 1
+        self.wait_element_to_be_clickable((By.CSS_SELECTOR, ".hide-carrot tr:nth-child(1)[class='issuerow']>td+[class=issuekey]>a")).click()
 

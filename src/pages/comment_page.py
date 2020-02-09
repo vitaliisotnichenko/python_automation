@@ -9,16 +9,8 @@ class CommentPage(BasePage):
         self.browser.find_element(By.CSS_SELECTOR, "#footer-comment-button").click()
 
     def enter_comment_text(self, comment_text):
-
-        for i in range(3):
-            try:
-                input_field = self.browser.find_element(By.CSS_SELECTOR, "#comment")
-                if input_field.is_displayed():
-                    return input_field.send_keys(comment_text)
-            except (NoSuchElementException, StaleElementReferenceException):
-                time.sleep(5)
-                i += 1
-                print("Couldn't find element. Retrying " + str(i) + " attempts")
+        __element = self.element_to_be_present((By.CSS_SELECTOR, "#comment"))
+        __element.send_keys(comment_text)
 
     def click_add_comment_button(self):
         self.browser.find_element(By.CSS_SELECTOR, "#issue-comment-add-submit").click()
