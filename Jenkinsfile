@@ -18,6 +18,20 @@ pipeline {
                 }
            }
 
+      stage("smoke_api")  {
+          steps{
+              //Run only api tests
+
+              sh '''
+                    /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv venv
+                    . venv/bin/activate
+                    python3 -m pytest -m smoke_api -v
+                 '''
+
+          }
+      }
+
+
       stage('Smoke') {
           steps {
              //Run only smoke test group
