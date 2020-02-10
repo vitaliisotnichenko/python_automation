@@ -7,8 +7,7 @@ pipeline {
 
          steps {
             // Get some code from a GitHub repository
-            git branch:refactoring_code, url:'https://github.com/vitaliisotnichenko/python_automation'
-//             "${env.BRANCH_NAME}"
+            git branch:"${env.BRANCH_NAME}", url:'https://github.com/vitaliisotnichenko/python_automation'
 
             // Install libraries
             sh '''
