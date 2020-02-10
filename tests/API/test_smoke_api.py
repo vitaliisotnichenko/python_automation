@@ -1,7 +1,6 @@
 import requests
 import pytest
 from requests.auth import HTTPBasicAuth
-import simplejson
 import re
 
 from global_scope import url_api
