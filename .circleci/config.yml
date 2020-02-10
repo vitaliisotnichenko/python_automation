@@ -13,7 +13,19 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
       - run:
-          name: run tests
+          name: run smoke_api tests
           command: |
             . venv/bin/activate
-             python3 -m pytest -m smoke
+             python3 -m pytest -m smoke_api -v
+
+      - run:
+          name: run smoke_api tests
+          command: |
+            . venv/bin/activate
+             python3 -m pytest -m smoke -v
+
+      - run:
+          name: run smoke_api tests
+          command: |
+            . venv/bin/activate
+             python3 -m pytest -m regression -v
