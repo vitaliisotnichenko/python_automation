@@ -36,29 +36,6 @@ class BasePage:
                 i += 1
                 print("Couldn't find element. Retrying " + str(i) + " attempts")
 
-    def wait_text_of_element_to_be_present(self, locator, title) -> WebElement:
-        for i in range(3):
-            try:
-                __create_issue_title = self.browser.find_element(locator).text
-                if title  in __create_issue_title:
-                    break
-            except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
-                    ElementNotInteractableException):
-                time.sleep(self.sleepTimeForRetry['fast'])
-                i += 1
-                print("Couldn't find element. Retrying " + str(i) + " attempts")
-
-    def text_of_element_to_be_present(self, locator):
-        for i in range(3):
-            try:
-                __element = self.browser.find_element(locator)
-                if __element.is_displayed():
-                    return __element.text
-            except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
-                    ElementClickInterceptedException):
-                    time.sleep(self.sleepTimeForRetry['medium'])
-                    i += 1
-                    print("Couldn't find element. Retrying " + str(i) + " attempts")
 
     def wait_for_spinner(self, locator):
         for i in range(2):
@@ -73,6 +50,3 @@ class BasePage:
                 time.sleep(self.sleepTimeForRetry['fast'])
                 i += 1
 
-    def wait_element_to_be_located(self, locator):
-        __element = WebDriverWait(self.browser, self.wait).until(
-            EC.visibility_of_element_located(locator))

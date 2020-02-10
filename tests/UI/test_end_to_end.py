@@ -17,7 +17,6 @@ class TestJiraLoginUI:
         self.login_page.login_to_jira_enter_password(global_pass)
         self.login_page.click_login_button_at_main_page()
         self.main_page = MainPage(browser)
-        self.main_page.is_assigned_to_me_section()
         assert self.main_page.is_assigned_to_me_section()
 
     @pytest.mark.smoke
@@ -32,12 +31,12 @@ class TestJiraLoginUI:
         assert self.main_page.is_assigned_to_me_section()
         self.main_page.click_create_issue_button()
         self.create_issue_page = CreateIssue(browser)
-        self.create_issue_page.should_have_title()
+        self.create_issue_page.should_have_title("Create Issue")
         self.create_issue_page.choose_the_project("Webinar (WEBINAR)")
         self.create_issue_page.enter_summary_field("UI bug In Jira")
         self.create_issue_page.enter_reporter("webinar5")
         self.create_issue_page.click_create_issue_button_at_details_page()
-        assert self.create_issue_page.is_alert_present()
+        assert "Issue" in self.create_issue_page.is_alert_present()
 
 
     @pytest.mark.regression

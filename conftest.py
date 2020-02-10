@@ -11,4 +11,8 @@ def browser():
     yield browser
     browser.quit()
 
+# def browser():
+#     browser = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+#     yield browser
+#     browser.quit()
 
