@@ -10,6 +10,5 @@
   "prioritizer": null,
   "capabilityMatcher": "org.openqa.grid.internal.utils.DefaultCapabilityMatcher",
   "throwOnCapabilityNotPresent": true,
-  "nodePolling": 180000,
-  "platform": "Mac OS"
+  "nodePolling": 180000
 }

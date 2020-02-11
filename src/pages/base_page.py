@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
+
     sleepTimeForRetry = {'slow': 20, 'medium': 15, 'fast': 5, 'very fast': 3}
 
     def __init__(self, browser, wait=10):
@@ -21,15 +22,31 @@ class BasePage:
     def at_page(self):
         return "System Dashboard - Hillel IT School JIRA" in self.browser.title
 
-    def wait_element_to_be_present(self, locator) -> WebElement:
+    def wait_element_to_be_clickable(self, locator) -> WebElement:
         for i in range(3):
             try:
-                __create_issue_button = WebDriverWait(self.browser, self.wait).until(
+                __wait_element_to_be_clickable = WebDriverWait(self.browser, self.wait).until(
                     EC.element_to_be_clickable(locator))
-                if __create_issue_button.is_displayed():
-                    return __create_issue_button
+                if __wait_element_to_be_clickable.is_displayed():
+                    return __wait_element_to_be_clickable
 
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
                     ElementNotInteractableException):
                 time.sleep(self.sleepTimeForRetry['medium'])
                 i += 1
+                print("Couldn't find element. Retrying " + str(i) + " attempts")
+
+
+    def wait_for_spinner(self, locator):
+        for i in range(2):
+            try:
+                __spinner = WebDriverWait(self.browser, 20).until(
+                    EC.visibility_of_element_located(locator))
+                time.sleep(self.sleepTimeForRetry['fast'])
+                return True
+
+            except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
+                    ElementClickInterceptedException):
+                time.sleep(self.sleepTimeForRetry['fast'])
+                i += 1
+

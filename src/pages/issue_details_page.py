@@ -2,8 +2,6 @@ import time
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, \
     ElementNotInteractableException, ElementClickInterceptedException
 
@@ -15,23 +13,13 @@ class IssueDetailsPage(BasePage):
         __edit_button = self.browser.find_element(By.CSS_SELECTOR, "#edit-issue .trigger-label")
 
     def click_issue_reporter_field(self):
-        for i in range(3):
-            try:
-                __reporter_field = WebDriverWait(self.browser, self.wait).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, "#assignee-val>span[class='user-hover']")))
-                return self.browser.find_element(By.CSS_SELECTOR, "#assignee-val>span[class='user-hover']").click()
-
-            except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
-                ElementClickInterceptedException):
-                    time.sleep(self.sleepTimeForRetry['medium'])
-                    i += 1
+        self.wait_element_to_be_clickable((By.CSS_SELECTOR, "#assignee-val>span[class='user-hover']")).click()
 
     def enter_new_reporter(self, name):
         for i in range(2):
             try:
                  if self.browser.find_element(By.CSS_SELECTOR, "#assignee-field").send_keys(name):
                      return True
-
 
             except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
                     ElementClickInterceptedException):

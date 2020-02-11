@@ -2,10 +2,17 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.9-rc-browsers
+      - image: circleci/python:3.9-rc-node-browsers
     working_directory: ~/repo
     steps:
       - checkout
+#      - run:
+#          name: start selenium GRID
+#          command: |
+#            TODO move driver to tools folder. Add chmod +x for driver
+#            chmod +x tools/selenium-server-standalone-3.141.59.jar
+#            java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 &
+#            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -debug &
       - run:
           name: install dependencies
           command: |
@@ -13,7 +20,35 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
       - run:
-          name: run tests
+          name: run smoke_api tests
           command: |
             . venv/bin/activate
-             python3 -m pytest -m smoke
+             python3 -m pytest -m smoke_api -v  --alluredir ~/repo/raw_test_result_jsons
+
+      - run:
+          name: run ui_smoke tests
+          command: |
+            . venv/bin/activate
+             python3 -m pytest -m smoke -v  --alluredir ~/repo/raw_test_result_jsons
+
+      - run:
+          name: run ui_regression tests
+          command: |
+            . venv/bin/activate
+             python3 -m pytest -m regression -v  --alluredir ~/repo/raw_test_result_jsons
+
+      - run:
+          name: install allure CLI
+          command: |
+            uname -a
+            sudo npm install -g allure-commandline --save-dev
+
+      - run:
+          name: generate report
+          command: |
+            allure generate -c ~/repo/raw_test_result_jsons -o ~/repo/test-reports
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
+          when: always
