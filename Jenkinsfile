@@ -13,7 +13,7 @@ pipeline {
                '''
 
 
-            git branch:"${params.BRANCH}", url:'https://github.com/vitaliisotnichenko/python_automation'
+            git branch:${params.BRANCH}, url:'https://github.com/vitaliisotnichenko/python_automation'
 
 
             // Install libraries
