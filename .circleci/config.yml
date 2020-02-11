@@ -7,6 +7,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: start selenium GRID
+          command: |
+            chmod +x tools/selenium-server-standalone-3.141.59.jar
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 &
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig hubConfig.json -debug &
+      - run:
           name: install dependencies
           command: |
             python3 -m venv venv
