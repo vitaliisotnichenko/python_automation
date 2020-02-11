@@ -11,7 +11,7 @@ jobs:
           command: |
             chmod +x tools/selenium-server-standalone-3.141.59.jar
             java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 &
-            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig hubConfig.json -debug &
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -debug &
       - run:
           name: install dependencies
           command: |
@@ -25,13 +25,13 @@ jobs:
              python3 -m pytest -m smoke_api -v
 
       - run:
-          name: run smoke_api tests
+          name: run ui_smoke tests
           command: |
             . venv/bin/activate
              python3 -m pytest -m smoke -v
 
       - run:
-          name: run smoke_api tests
+          name: run ui_regression tests
           command: |
             . venv/bin/activate
              python3 -m pytest -m regression -v
