@@ -8,7 +8,7 @@ pipeline {
          steps {
             // Get some code from a GitHub repository
             sh '''
-                    #!/bin/bash
+                    #!/bin/bash -xe
                     echo "${params.BRANCH}"
                '''
 
