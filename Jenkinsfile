@@ -11,11 +11,11 @@ pipeline {
             // Get some code from a GitHub repository
             sh '''
                     #!/bin/bash -xe
-                    echo "${BRANCH_NAME}"
+                    echo "${env.BRANCH_NAME}"
                '''
 
 
-            git branch:"${BRANCH_NAME}", url:'https://github.com/vitaliisotnichenko/python_automation'
+            git branch:"${env.BRANCH_NAME}", url:'https://github.com/vitaliisotnichenko/python_automation'
 
 
             // Install libraries
