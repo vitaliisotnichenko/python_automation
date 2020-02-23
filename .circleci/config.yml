@@ -9,10 +9,11 @@ jobs:
       - run:
           name: start selenium GRID
           command: |
-            chmod +x tools/chromedriver
-            chmod +x tools/selenium-server-standalone-3.141.59.jar
+            chmod +x /Users/vitaliisotnichenko/Testing/Python_Automation/Python_Mentor/Github/python_automation/tools/chromedriver
+            chmod +x /Users/vitaliisotnichenko/Testing/Python_Automation/Python_Mentor/Github/python_automation/tools/selenium-server-standalone-3.141.59.jar
             java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 &
             java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -debug &
+          background: true
       - run:
           name: install dependencies
           command: |
