@@ -9,7 +9,6 @@ jobs:
       - run:
           name: start selenium GRID
           command: |
-#            TODO move driver to tools folder. Add chmod +x for driver
             chmod +x tools/chromedriver
             chmod +x tools/selenium-server-standalone-3.141.59.jar
             java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 &
