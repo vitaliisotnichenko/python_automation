@@ -9,6 +9,7 @@ jobs:
       - run:
           name: start selenium GRID
           command: |
+            java -version
             chmod +x tools/chromedriver
             chmod +x tools/selenium-server-standalone-3.141.59.jar
             mkdir grid-logs
