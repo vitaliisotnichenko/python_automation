@@ -13,8 +13,8 @@ jobs:
             chmod +x tools/selenium-server-standalone-3.141.59.jar
             mkdir grid-logs
             chmod -R 755 grid-logs
-            java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 -log grid-logs/hub.log &
-            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -debug -log grid-logs/node.log &
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -debug -log grid-logs/hub.log
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 -log grid-logs/node.log
           background: true
       - run:
           name: install dependencies
