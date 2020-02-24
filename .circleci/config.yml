@@ -11,9 +11,10 @@ jobs:
           command: |
             chmod +x tools/chromedriver
             chmod +x tools/selenium-server-standalone-3.141.59.jar
-            java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 &
-            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -debug &
-          background: true
+            mkdir grid-logs
+            chmod -R 755 grid-logs
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 -log grid-logs/hub.log
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -debug -log grid-logs/node.log
       - run:
           name: install dependencies
           command: |
@@ -52,4 +53,9 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+          when: always
+
+      - store_artifacts:
+          path: grid-logs
+          destination: grid-logs
           when: always
