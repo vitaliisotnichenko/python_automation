@@ -25,10 +25,24 @@ class BasePage:
     def wait_element_to_be_clickable(self, locator) -> WebElement:
         for i in range(3):
             try:
-                __wait_element_to_be_clickable = WebDriverWait(self.browser, self.wait).until(
+                __wait = WebDriverWait(self.browser, self.wait).until(
                     EC.element_to_be_clickable(locator))
-                if __wait_element_to_be_clickable.is_displayed():
-                    return __wait_element_to_be_clickable
+                if __wait.is_displayed():
+                    return __wait
+
+            except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
+                    ElementNotInteractableException):
+                time.sleep(self.sleepTimeForRetry['medium'])
+                i += 1
+                print("Couldn't find element. Retrying " + str(i) + " attempts")
+
+    def wait_element_to_be_present(self, locator) -> WebElement:
+        for i in range(3):
+            try:
+                __wait = WebDriverWait(self.browser, self.wait).until(
+                    EC.presence_of_element_located(locator))
+                if __wait.is_displayed():
+                    return self.browser.find_element(locator)
 
             except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
                     ElementNotInteractableException):

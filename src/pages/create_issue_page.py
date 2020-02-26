@@ -12,15 +12,18 @@ from .base_page import BasePage
 class CreateIssue(BasePage):
 
     def should_have_title(self, title):
-        for i in range(3):
-            try:
-                __create_issue_title = self.browser.find_element(By.CSS_SELECTOR, "[title='Create Issue']").text
-                if title in __create_issue_title:
-                    break
-            except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
-                    ElementNotInteractableException):
-                time.sleep(self.sleepTimeForRetry['fast'])
-                i += 1
+        text = self.wait_element_to_be_present((By.CSS_SELECTOR, "[title='Create Issue']")).text
+        return text
+
+        # for i in range(3):
+        #     try:
+        #         __create_issue_title = self.browser.find_element(By.CSS_SELECTOR, "[title='Create Issue']").text
+        #         if title in __create_issue_title:
+        #             break
+        #     except (NoSuchElementException, StaleElementReferenceException, ElementClickInterceptedException,
+        #             ElementNotInteractableException):
+        #         time.sleep(self.sleepTimeForRetry['fast'])
+        #         i += 1
 
     def choose_the_project(self, project_name):
         wait = WebDriverWait(self.browser, self.wait)
