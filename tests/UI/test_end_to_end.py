@@ -50,7 +50,8 @@ class TestJiraLoginUI:
         self.comment_page_page.click_comment_button()
         self.comment_page_page.enter_comment_text("comment_text")
         self.comment_page_page.click_add_comment_button()
-        assert not self.comment_page_page.comment_input_field_at_page(), "Comment not added"
+        assert self.comment_page_page.comment_is_present("comment_text")
+        # assert not self.comment_page_page.comment_is_present(), "Comment not added"
 
 
     @pytest.mark.regression

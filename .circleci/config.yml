@@ -6,13 +6,20 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-#      - run:
-#          name: start selenium GRID
-#          command: |
-#            TODO move driver to tools folder. Add chmod +x for driver
-#            chmod +x tools/selenium-server-standalone-3.141.59.jar
-#            java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 &
-#            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -debug &
+      - run:
+          name: start selenium GRID
+          command: |
+            java -version
+            chmod +x tools/chromedriver
+            chmod +x tools/selenium-server-standalone-3.141.59.jar
+            mkdir grid-logs
+            chmod -R 755 grid-logs
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role hub -hubConfig tools/hubConfig.json -log grid-logs/hub.log
+            sleep 10
+      - run:
+          name: start node GRID
+          command: |
+            java -jar tools/selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444 -log grid-logs/node.log
       - run:
           name: install dependencies
           command: |
@@ -51,4 +58,9 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+          when: always
+
+      - store_artifacts:
+          path: grid-logs
+          destination: grid-logs
           when: always
