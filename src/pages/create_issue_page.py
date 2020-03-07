@@ -12,8 +12,9 @@ from .base_page import BasePage
 class CreateIssue(BasePage):
 
     def should_have_title(self, title):
-        text = self.wait_element_to_be_present((By.CSS_SELECTOR, "[title='Create Issue']")).text
-        return text
+        text_of_element = self.wait_element_to_be_present((By.CSS_SELECTOR, "[title='Create Issue']")).text
+        assert title in text_of_element
+
 
         # for i in range(3):
         #     try:
@@ -49,12 +50,15 @@ class CreateIssue(BasePage):
 
 
     def is_alert_present(self):
-        for i in range(3):
-            try:
-                __issue = self.browser.find_element_by_css_selector(".aui-will-close")
-                if __issue.is_displayed():
-                    return __issue.text
-            except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
-                    ElementClickInterceptedException):
-                time.sleep(self.sleepTimeForRetry['fast'])
-                i += 1
+        element = self.wait_element_to_be_present((By.CSS_SELECTOR, ".aui-will-close")).text
+        return element
+
+        # for i in range(3):
+        #     try:
+        #         __issue = self.browser.find_element_by_css_selector(".aui-will-close")
+        #         if __issue.is_displayed():
+        #             return __issue.text
+        #     except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException,
+        #             ElementClickInterceptedException):
+        #         time.sleep(self.sleepTimeForRetry['fast'])
+        #         i += 1
